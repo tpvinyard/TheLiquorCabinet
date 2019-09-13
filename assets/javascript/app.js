@@ -1,12 +1,21 @@
 $(document).ready(function() {
     
     // for testing purposes
-    let ingredients = 'vodka';
+    let additionalIngredientsArray = ['vodka', 'lime'];
 
     $("#submit-button").on("click", function() {
-        console.log('made it');
+        let inputAlcohol = $('#searchAlcohol').val();
 
-        let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + ingredients;
+        let ingredientArrayToText = additionalIngredientsArray.join('&i=');
+        console.log(additionalIngredientsArray);
+        console.log(ingredientArrayToText);
+
+        if (!inputAlcohol == '') {
+            console.log('made it')
+            ingredientArrayToText = '&i=' + ingredientArrayToText;
+        }
+
+        let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + additionalIngredientsArray;
 
         console.log(queryURL);
 
@@ -18,6 +27,7 @@ $(document).ready(function() {
             console.log(response.drinks);
         });
     });
+
 
 
     function addIngredient() {
