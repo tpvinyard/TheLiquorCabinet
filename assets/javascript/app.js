@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    
+    let returnedDrinks = {};
+    let returnedDrinksArray = '';
     // for testing purposes
     let additionalIngredientsArray = ['vodka', 'lime'];
 
@@ -7,26 +8,50 @@ $(document).ready(function() {
         let inputAlcohol = $('#searchAlcohol').val();
 
         let ingredientArrayToText = additionalIngredientsArray.join('&i=');
-        console.log(additionalIngredientsArray);
-        console.log(ingredientArrayToText);
+        
 
         if (!inputAlcohol == '') {
             ingredientArrayToText = '&i=' + ingredientArrayToText;
-            console.log(ingredientArrayToText);
+            
         }
 
         let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
+        let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" 
 
-        console.log(queryURL);
+        
 
         $.ajax({
         url: queryURL,
         method: "GET"
         })
         .then(function(response) {
-            console.log(response.drinks);
+            returnedDrinks = response;
+            returnedDrinksArray = getDrinkIDArray(returnedDrinks);
         });
+
+        
+        
+
+        for (let i = 0; i<returnedDrinksArray.length; i++) {
+            let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
+            $.ajax({
+                url: queryDrinksUrl,
+                method: "GET"
+            })
+            .then(function(response){
+                console.log(response)
+            })
+        }
+
     });
+
+    function getDrinkIDArray(response) {
+        let drinkIDArray = [];
+        for (let i = 0; i < response.drinks.length; i++) {
+            drinkIDArray.push(response.drinks[i].idDrink);
+        }
+        return drinkIDArray;
+    }
 
 
 
