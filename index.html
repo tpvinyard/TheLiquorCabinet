@@ -15,14 +15,24 @@
     <script src="assets/javascript/app.js"></script>
   </head>
   <body>
-    <div class="col-md-3 offset-md-3">
-      <form>
-        <div class="form-group">
-          <input type="text" class="form-control" id="searchAlcohol" placeholder="Enter an ingredient"/>
+    <div class="card">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="card-body">
+            <form class="form-inline">
+              <div class="col-sm-4 col-sm-offset-4">
+                <div class="btn-space">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="searchAlcohol" placeholder="Enter an ingredient" />
+                    <button type="button" class="btn btn-primary" id="submit-button">Search</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <button type="button" class="btn btn-secondary" id="add-ingredients">Add Ingredients</button>
+          </div>
         </div>
-        <button type="button" class="btn btn-primary" id="submit-button">Search</button>
-        <button type="button" class="add-ingredients" id="add-ingredients">add-ingredients</button>
-      </form>
+      </div>
     </div>
   </body>
 </html>

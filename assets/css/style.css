@@ -1,0 +1,32 @@
+body {
+  background: #280010;
+}
+.card {
+  background-image: url(../images/images.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #f72579;
+  width: 650px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border: none;
+}
+.row {
+  display: flex;
+  justify-content: center;
+}
+input {
+  margin: auto;
+}
+.btn-space {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+}
+#submit-button {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
