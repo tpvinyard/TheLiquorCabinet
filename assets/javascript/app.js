@@ -18,4 +18,20 @@ $(document).ready(function() {
             console.log(response.drinks);
         });
     });
+
+
+    function addIngredient() {
+        let additionalIngredients = $(`<div>`);
+        additionalIngredients.text(searchValue);
+        additionalIngredientsArray.push(searchValue);
+        $('#add-ingredient').prepend(additionalIngredients); 
+    }
+    
+    $('#add-ingredient').on('click', function(){
+        let searchValue = $('#searchAlcohol').val().trim();
+
+        if (!searchValue == '') {
+            addIngredient();
+        }
+    })
 });
