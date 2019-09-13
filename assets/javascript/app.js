@@ -11,11 +11,11 @@ $(document).ready(function() {
         console.log(ingredientArrayToText);
 
         if (!inputAlcohol == '') {
-            console.log('made it')
             ingredientArrayToText = '&i=' + ingredientArrayToText;
+            console.log(ingredientArrayToText);
         }
 
-        let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + additionalIngredientsArray;
+        let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
 
         console.log(queryURL);
 
