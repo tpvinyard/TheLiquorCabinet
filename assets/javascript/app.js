@@ -68,6 +68,8 @@ $(document).ready(function() {
       if (!searchValue == "") {
         addIngredient();
       }
+
+      updateLocalStorage();
     });
     
     $(document).on('click', '.ingredient', function(){
@@ -75,7 +77,14 @@ $(document).ready(function() {
         additionalIngredientsArray.splice(additionalIngredientsArray.indexOf($(this).text()), 1);
         $(this).remove();
         console.log(additionalIngredientsArray);
+
+        updateLocalStorage();
     })
+
+    function updateLocalStorage() {
+        let stringAdditionalIngredientsArray = JSON.stringify(additionalIngredientsArray);
+        localStorage.setItem('userIngredientArray', stringAdditionalIngredientsArray);
+    }
 
     function parseIngredient(selectedDrink) {
         let ingredientArray = []; //make this global once merged
