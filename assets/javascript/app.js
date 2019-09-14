@@ -109,20 +109,24 @@ $(document).ready(function() {
     function drinkDetailDOM(selectedDrink, ingredients, measurements){ //ingredients and measurements are arrays
         const newIng = $("<div class='ingredients'>");
         const newMes = $("<div class='measurements'>");
+        const newPic = $("<a>");
         let id = selectedDrink.drinks.idDrink; // assign responses to respective variables
         let name = selectedDrink.drinks.strDrink;
         let category = selectedDrink.drinks.strCategory;
         let instructions = selectedDrink.drinks.strInstructions;
+        let picURL = selectedDrink.drinks.strDrinkThumb; //API returns URL to picture     
         for (let i=0; i< ingredients.length; i++){  // loop through corrected length ingredient array
             newIng.append(ingredients[i]);
             newMes.append(measurements[i]);
         }
+        newPic.attr("href", picURL); //appends href attribute to "a" tag
         $(".drinks").append(name); // push divs to DOM
         $(".drinks").append(id);
         $(".drinks").append(category);
         $(".drinks").append(instructions);
         $(".drinks").append(newIng);
         $(".drinks").append(newMes);
+        $(".drinks").append(newPic);
     }
        
 
