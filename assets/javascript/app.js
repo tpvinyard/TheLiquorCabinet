@@ -84,5 +84,5 @@ $(document).ready(function() {
     console.log(additionalIngredientsArray);
   });
 
-  // $(searchValue).empty();
+  $(searchValue).empty();
 });
