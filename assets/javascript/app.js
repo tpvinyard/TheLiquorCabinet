@@ -3,7 +3,7 @@ $(document).ready(function() {
     let returnedDrinksArray = '';
     let searchValue = '';
     // for testing purposes
-    let additionalIngredientsArray = ['vodka', 'lime'];
+    let additionalIngredientsArray = [];
 
     $("#submit-button").on("click", function() {
         let inputAlcohol = $('#searchAlcohol').val();
@@ -17,9 +17,6 @@ $(document).ready(function() {
         }
 
         let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
-        let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" 
-
-        
 
         $.ajax({
         url: queryURL,
@@ -28,21 +25,17 @@ $(document).ready(function() {
         .then(function(response) {
             returnedDrinks = response;
             returnedDrinksArray = getDrinkIDArray(returnedDrinks);
+            for (let i = 0; i<returnedDrinksArray.length; i++) {
+                let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
+                $.ajax({
+                    url: queryDrinksUrl,
+                    method: "GET"
+                })
+                .then(function(response){
+                    console.log(response)
+                })
+            }
         });
-
-        
-        
-
-        for (let i = 0; i<returnedDrinksArray.length; i++) {
-            let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
-            $.ajax({
-                url: queryDrinksUrl,
-                method: "GET"
-            })
-            .then(function(response){
-                console.log(response)
-            })
-        }
 
     });
 
@@ -57,13 +50,9 @@ $(document).ready(function() {
 
 
     function addIngredient() {
-        console.log('made it');
-        console.log(searchValue);
         let additionalIngredients = $('<div>');
         additionalIngredients.text(searchValue);
         additionalIngredientsArray.push(searchValue);
-        console.log(additionalIngredients.html());
-        console.log(additionalIngredientsArray);
         $('#add-ingredients').prepend(additionalIngredients); 
     }
     
