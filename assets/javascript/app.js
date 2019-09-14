@@ -54,7 +54,7 @@ $(document).ready(function() {
     $("#ingredientContainer").append(additionalIngredients);
     ingredientCounter++;
   }
-    $("#add-ingredients").on("click", function() {
+    $("#add-ingredients").on("click", function() {   // 
       searchValue = $("#searchAlcohol")
         .val()
         .trim();
@@ -66,5 +66,5 @@ $(document).ready(function() {
     
   $(document).on("click", ".ingredient", function() {
     $(this).remove();
-  });
+  });    
 });
