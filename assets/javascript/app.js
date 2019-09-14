@@ -4,6 +4,7 @@ $(document).ready(function() {
     let searchValue = '';
     // for testing purposes
     let additionalIngredientsArray = [];
+    let ingredientCounter = 0;
 
     $("#submit-button").on("click", function() {
         let inputAlcohol = $('#searchAlcohol').val();
@@ -50,10 +51,15 @@ $(document).ready(function() {
 
 
     function addIngredient() {
-        let additionalIngredients = $('<div>');
+        let additionalIngredients = $('<button>');
         additionalIngredients.text(searchValue);
+        additionalIngredients.attr('class', 'ingredient');
+        additionalIngredients.attr('data-position', ingredientCounter);
+        additionalIngredients.addClass('btn');
+        additionalIngredients.addClass('btn-secondary');
         additionalIngredientsArray.push(searchValue);
-        $('#add-ingredients').prepend(additionalIngredients); 
+        $('#ingredientContainer').append(additionalIngredients); 
+        ingredientCounter++;
     }
     
     $('#add-ingredients').on('click', function(){
@@ -63,4 +69,11 @@ $(document).ready(function() {
             addIngredient();
         }
     })
+
+    
+    $('.ingredient').on('click', function(){
+        $(this).remove();
+    })
+    
+
 });
