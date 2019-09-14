@@ -11,10 +11,9 @@ $(document).ready(function() {
 
     let ingredientArrayToText = additionalIngredientsArray.join(",");
 
-        if (!inputAlcohol == '') {
-            ingredientArrayToText = ',' + ingredientArrayToText;
-            
-        }
+    if (!inputAlcohol == "") {
+      ingredientArrayToText = "," + ingredientArrayToText;
+    }
 
     let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
 
@@ -49,10 +48,6 @@ $(document).ready(function() {
         return drinkIDArray;
     }
 
-
-
-   
-  
 
   function addIngredient() {
     let additionalIngredients = $("<button>");
@@ -120,5 +115,9 @@ $(document).ready(function() {
         $(".drinks").append(newIng);
         $(".drinks").append(newMes);
     }
+       
+
+  $(searchValue).empty();
+
 });
 
