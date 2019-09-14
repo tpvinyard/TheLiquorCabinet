@@ -1,6 +1,7 @@
 $(document).ready(function() {
     let returnedDrinks = {};
     let returnedDrinksArray = '';
+    let searchValue = '';
     // for testing purposes
     let additionalIngredientsArray = ['vodka', 'lime'];
 
@@ -56,14 +57,18 @@ $(document).ready(function() {
 
 
     function addIngredient() {
-        let additionalIngredients = $(`<div>`);
+        console.log('made it');
+        console.log(searchValue);
+        let additionalIngredients = $('<div>');
         additionalIngredients.text(searchValue);
         additionalIngredientsArray.push(searchValue);
-        $('#add-ingredient').prepend(additionalIngredients); 
+        console.log(additionalIngredients.html());
+        console.log(additionalIngredientsArray);
+        $('#add-ingredients').prepend(additionalIngredients); 
     }
     
-    $('#add-ingredient').on('click', function(){
-        let searchValue = $('#searchAlcohol').val().trim();
+    $('#add-ingredients').on('click', function(){
+        searchValue = $('#searchAlcohol').val().trim();
 
         if (!searchValue == '') {
             addIngredient();
