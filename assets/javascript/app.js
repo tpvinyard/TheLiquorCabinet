@@ -13,7 +13,7 @@ $(document).ready(function() {
         
 
         if (!inputAlcohol == '') {
-            ingredientArrayToText = '&i=' + ingredientArrayToText;
+            ingredientArrayToText = ',' + ingredientArrayToText;
             
         }
 
@@ -26,6 +26,7 @@ $(document).ready(function() {
         .then(function(response) {
             returnedDrinks = response;
             returnedDrinksArray = getDrinkIDArray(returnedDrinks);
+            console.log(queryURL)
             for (let i = 0; i<returnedDrinksArray.length; i++) {
                 let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
                 $.ajax({
@@ -33,6 +34,7 @@ $(document).ready(function() {
                     method: "GET"
                 })
                 .then(function(response){
+                    console.log(queryDrinksUrl)
                     console.log(response)
                 })
             }
@@ -53,7 +55,7 @@ $(document).ready(function() {
     function addIngredient() {
         let additionalIngredients = $('<button>');
         additionalIngredients.text(searchValue);
-        additionalIngredients.attr('class', 'ingredient');
+        additionalIngredients.addClass('ingredient');
         additionalIngredients.attr('data-position', ingredientCounter);
         additionalIngredients.addClass('btn');
         additionalIngredients.addClass('btn-secondary');
@@ -71,9 +73,16 @@ $(document).ready(function() {
     })
 
     
-    $('.ingredient').on('click', function(){
+    $(document).on('click', '.ingredient', function(){
+        event.preventDefault();
+        let position = $(this).data('position');
+        additionalIngredientsArray.splice(position, 1);
         $(this).remove();
+        console.log(additionalIngredientsArray)
+        
     })
+       
+    
     
 
 });
