@@ -1,32 +1,33 @@
 $(document).ready(function() {
-    let returnedDrinks = {};
-    let returnedDrinksArray = '';
-    let searchValue = '';
-    // for testing purposes
-    let additionalIngredientsArray = [];
+  let returnedDrinks = {};
+  let returnedDrinksArray;
+  let searchValue = "";
+  // for testing purposes
+  let additionalIngredientsArray = [];
+  
 
-    $("#submit-button").on("click", function() {
-        let inputAlcohol = $('#searchAlcohol').val();
+  $("#submit-button").on("click", function() {
+    let inputAlcohol = $("#searchAlcohol").val();
 
-        let ingredientArrayToText = additionalIngredientsArray.join('&i=');
-        
+    let ingredientArrayToText = additionalIngredientsArray.join(",");
 
         if (!inputAlcohol == '') {
-            ingredientArrayToText = '&i=' + ingredientArrayToText;
+            ingredientArrayToText = ',' + ingredientArrayToText;
             
         }
 
-        let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
+    let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
 
-        $.ajax({
-        url: queryURL,
-        method: "GET"
-        })
-        .then(function(response) {
-            returnedDrinks = response;
-            returnedDrinksArray = getDrinkIDArray(returnedDrinks);
-            for (let i = 0; i<returnedDrinksArray.length; i++) {
-                let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+    console.log(queryURL);
+    returnedDrinks = response;
+    returnedDrinksArray = getDrinkIDArray(returnedDrinks);
+    console.log(returnedDrinksArray)
+    for (let i = 0; i < returnedDrinksArray.length; i++) {
+        let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
                 $.ajax({
                     url: queryDrinksUrl,
                     method: "GET"
@@ -37,9 +38,9 @@ $(document).ready(function() {
                 })
             }
         });
-
-    });
-
+      });
+ 
+  
     function getDrinkIDArray(response) {
         let drinkIDArray = [];
         for (let i = 0; i < response.drinks.length; i++) {
@@ -50,19 +51,35 @@ $(document).ready(function() {
 
 
 
-    function addIngredient() {
-        let additionalIngredients = $('<div>');
-        additionalIngredients.text(searchValue);
-        additionalIngredientsArray.push(searchValue);
-        $('#add-ingredients').prepend(additionalIngredients); 
-    }
-    
-    $('#add-ingredients').on('click', function(){
-        searchValue = $('#searchAlcohol').val().trim();
+   
+  
 
-        if (!searchValue == '') {
-            addIngredient();
-        }
+  function addIngredient() {
+    let additionalIngredients = $("<button>");
+    additionalIngredients.text(searchValue);
+    additionalIngredients.attr("class", "ingredient");
+    additionalIngredients.addClass("btn");
+    additionalIngredients.addClass("btn-secondary");
+    additionalIngredientsArray.push(searchValue);
+    $("#ingredientContainer").append(additionalIngredients);
+    
+  }
+
+    $("#add-ingredients").on("click", function() {   
+      searchValue = $("#searchAlcohol")
+        .val()
+        .trim();
+
+      if (!searchValue == "") {
+        addIngredient();
+      }
+    });
+    
+    $(document).on('click', '.ingredient', function(){
+        event.preventDefault();
+        additionalIngredientsArray.splice(additionalIngredientsArray.indexOf($(this).text()), 1);
+        $(this).remove();
+        console.log(additionalIngredientsArray);
     })
 
     function parseIngredient(selectedDrink) {
