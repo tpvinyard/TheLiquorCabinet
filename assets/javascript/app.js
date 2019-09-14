@@ -3,7 +3,8 @@ $(document).ready(function() {
     let returnedDrinksArray = '';
     let searchValue = '';
     // for testing purposes
-    let additionalIngredientsArray = ['vodka', 'lime'];
+    let additionalIngredientsArray = [];
+    let ingredientCounter = 0;
 
     $("#submit-button").on("click", function() {
         let inputAlcohol = $('#searchAlcohol').val();
@@ -17,7 +18,6 @@ $(document).ready(function() {
         }
 
         let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
-        let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" 
 
         
 
@@ -28,6 +28,7 @@ $(document).ready(function() {
         .then(function(response) {
             returnedDrinks = response;
             returnedDrinksArray = getDrinkIDArray(returnedDrinks);
+            console.log(response)
         });
 
         
@@ -61,10 +62,13 @@ $(document).ready(function() {
         console.log(searchValue);
         let additionalIngredients = $('<div>');
         additionalIngredients.text(searchValue);
+        additionalIngredients.attr('class', 'ingredient');
+        additionalIngredients.attr('data-position', ingredientCounter);
         additionalIngredientsArray.push(searchValue);
         console.log(additionalIngredients.html());
         console.log(additionalIngredientsArray);
         $('#add-ingredients').prepend(additionalIngredients); 
+        ingredientCounter++;
     }
     
     $('#add-ingredients').on('click', function(){
@@ -74,4 +78,14 @@ $(document).ready(function() {
             addIngredient();
         }
     })
+
+    
+    $('.ingredient').on('click', function(){
+        let position = $(this).data('position').val();
+            $(this).remove();
+            additionalIngredientsArray.splice(position, 1);
+            console.log(additionalIngredientsArray)
+    })
+    
+
 });
