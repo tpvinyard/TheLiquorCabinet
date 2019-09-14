@@ -51,12 +51,14 @@ $(document).ready(function() {
 
 
     function addIngredient() {
-        let additionalIngredients = $('<div>');
+        let additionalIngredients = $('<button>');
         additionalIngredients.text(searchValue);
         additionalIngredients.attr('class', 'ingredient');
         additionalIngredients.attr('data-position', ingredientCounter);
+        additionalIngredients.addClass('btn');
+        additionalIngredients.addClass('btn-secondary');
         additionalIngredientsArray.push(searchValue);
-        $('#add-ingredients').prepend(additionalIngredients); 
+        $('#ingredientContainer').append(additionalIngredients); 
         ingredientCounter++;
     }
     
@@ -70,10 +72,7 @@ $(document).ready(function() {
 
     
     $('.ingredient').on('click', function(){
-        let position = $(this).data('position').val();
-            $(this).remove();
-            additionalIngredientsArray.splice(position, 1);
-            console.log(additionalIngredientsArray)
+        $(this).remove();
     })
     
 
