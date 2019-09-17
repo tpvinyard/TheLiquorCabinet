@@ -1,9 +1,11 @@
 $(document).ready(function() {
-  let returnedDrinks = {};
+  let returnedDrinks = [];
+  let returnedDetails = [];
   let returnedDrinksArray;
   let searchValue = "";
   // for testing purposes
   let additionalIngredientsArray = [];
+  let count = 0;
   
 
   $("#submit-button").on("click", function() {
@@ -24,7 +26,7 @@ $(document).ready(function() {
     console.log(queryURL);
     returnedDrinks = response;
     returnedDrinksArray = getDrinkIDArray(returnedDrinks);
-    console.log(returnedDrinksArray)
+    console.log(returnedDrinks)
     for (let i = 0; i < returnedDrinksArray.length; i++) {
         let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
                 $.ajax({
@@ -32,11 +34,15 @@ $(document).ready(function() {
                     method: "GET"
                 })
                 .then(function(response){
-                    console.log(returnedDrinks);
-                    return returnedDrinks; //returns full array for parsing ingredients
+                    returnedDetails.push(response);
+                    loadResults(count);
+                    count++;
+                    
+                     //returns full array for parsing ingredients
                 })
             }
         });
+        
       });
  
   
@@ -89,7 +95,7 @@ $(document).ready(function() {
     function parseIngredient(selectedDrink) {
         let ingredientArray = []; //make this global once merged
         for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
-            let tempIngredient = selectedDrink.drinks.strIngredient[i];
+           
             ingredientArray.push(tempIngredient);
         }
         ingredientArray = jQuery.grep(arr, function (n) { return (n); }); //trims empty fields from array
@@ -147,4 +153,23 @@ $(document).ready(function() {
       })
     })
 
+    
+
+    function loadResults(n) {
+        let newCard = $('<div>');
+        newCard.addClass('card');
+        newCard.attr('style', 'width: 18rem;');
+        newCard.addClass('bg-light');
+        newCard.addClass('float-left');
+        let drinkTitle = $('<h3>');
+        let drinkIngredients = $('<p>');
+        let drinkImage = $('<img>');
+        drinkTitle.addClass('card-title').text(returnedDetails[n].drinks[0].strDrink);
+        drinkIngredients.addClass('card-text').text(returnedDetails[n].drinks[0].strIngredient1 + ', ' + returnedDetails[n].drinks[0].strIngredient2 + ', ' + returnedDetails[n].drinks[0].strIngredient3);
+        drinkImage.addClass('card-img-top').attr('src', returnedDetails[n].drinks[0].strDrinkThumb);
+        newCard.append(drinkImage);
+        newCard.append(drinkTitle);
+        newCard.append(drinkIngredients);
+        $('#results-container').append(newCard);
+    }
   });
