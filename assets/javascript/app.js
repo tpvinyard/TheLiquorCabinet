@@ -130,7 +130,21 @@ $(document).ready(function() {
     }
        
 
-  $(searchValue).empty();
+    $(searchValue).empty();
 
-});
+    $('#test-button').on('click', function() {
+      let cocktailName = 'tom collins';
+      let cocktailNameFormatted = cocktailName.split(' ').join('+');
+      let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&order=viewCount&type=video&videoEmbeddable=true&key=AIzaSyAsSIrxTBBk81EiuwwXluOFKR6_xNKm--A';
+      $.ajax({
+        url: youtubeURL,
+        method: 'GET'
+      }).then(function(response){
+        console.log(youtubeURL);
+        console.log(response);
+        console.log(response.items[0].id.videoId);
+        console.log('www.youtube.com/watch?v=' + response.items[0].id.videoId);
+      })
+    })
 
+  });
