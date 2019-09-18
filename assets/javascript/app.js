@@ -8,7 +8,7 @@ $(document).ready(function() {
   let YouTubeLink = '';
   let count = 0;
   
-
+ 
   $("#submit-button").on("click", function() {
     let inputAlcohol = $("#searchAlcohol").val();
 
