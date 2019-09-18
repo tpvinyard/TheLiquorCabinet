@@ -27,7 +27,7 @@ $(document).ready(function() {
     
           .then(result => {
             const user = result.user;
-            document.write(`Hello, ${user.displayName}`);
+            document.write(`Hi, ${user.displayName}`);
             console.log(user);
           })
           .catch(console.log);
