@@ -5,8 +5,8 @@ $(document).ready(function() {
   let searchValue = "";
   // for testing purposes
   let additionalIngredientsArray = [];
+  let YouTubeLink = '';
   let count = 0;
-  let YouTubeLink = [];
   
 
   $("#submit-button").on("click", function() {
@@ -36,7 +36,6 @@ $(document).ready(function() {
                 })
                 .then(function(response){
                     returnedDetails.push(response);
-                    returnYouTubeLink('margarita');
                     loadResults(count);
                     count++;
                     
@@ -145,42 +144,34 @@ $(document).ready(function() {
 
     $(searchValue).empty();
 
-    function returnYouTubeLink(drinkName) {
-      let cocktailName = drinkName;
-      let cocktailNameFormatted = cocktailName.split(' ').join('+');
-      let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '&order=viewCount&type=video&videoEmbeddable=true&key=AIzaSyAsSIrxTBBk81EiuwwXluOFKR6_xNKm--A';
-      $.ajax({
-        url: youtubeURL,
-        method: 'GET'
-      }).then(function(response){
-        // console.log(youtubeURL);
-        // console.log(response);
-        // console.log(response.items[0].id.videoId);
-        // console.log('www.youtube.com/watch?v=' + response.items[0].id.videoId);
-        YouTubeLink.push(response.items[0].id.videoId);
-      })
-    };
-
     
-
     function loadResults(n) {
-        //returnYouTubeLink('margarita');
-        console.log(YouTubeLink);
-        let newCard = $('<div>');
-        newCard.addClass('card');
-        newCard.attr('style', 'width: 18rem;');
-        newCard.addClass('bg-light');
-        newCard.addClass('float-left');
-        let drinkTitle = $('<h3>');
-        let drinkIngredients = $('<p>');
-        let drinkImage = $('<img>');
-        drinkTitle.addClass('card-title').text(returnedDetails[n].drinks[0].strDrink);
-        drinkIngredients.addClass('card-text').text(returnedDetails[n].drinks[0].strIngredient1 + ', ' + returnedDetails[n].drinks[0].strIngredient2 + ', ' + returnedDetails[n].drinks[0].strIngredient3);
-        drinkImage.addClass('card-img-top').attr('src', returnedDetails[n].drinks[0].strDrinkThumb);
-        drinkImage.attr('data-video', ('www.youtube.com/watch?v=' + YouTubeLink[n]));
-        newCard.append(drinkImage);
-        newCard.append(drinkTitle);
-        newCard.append(drinkIngredients);
-        $('#results-container').append(newCard);
+      let newCard = $('<div>');
+      newCard.addClass('card');
+      newCard.attr('style', 'width: 18rem;');
+      newCard.addClass('bg-light');
+      newCard.addClass('float-left');
+      let drinkTitle = $('<h3>');
+      let drinkIngredients = $('<p>');
+      let drinkImage = $('<img>');
+      drinkTitle.addClass('card-title').text(returnedDetails[n].drinks[0].strDrink);
+      drinkIngredients.addClass('card-text').text(returnedDetails[n].drinks[0].strIngredient1 + ', ' + returnedDetails[n].drinks[0].strIngredient2 + ', ' + returnedDetails[n].drinks[0].strIngredient3);
+      drinkImage.addClass('card-img-top').attr('src', returnedDetails[n].drinks[0].strDrinkThumb);
+      newCard.append(drinkImage);
+      newCard.append(drinkTitle);
+      newCard.append(drinkIngredients);
+
+      $('#results-container').append(newCard);
+        let cocktailNameFormatted = returnedDetails[n].drinks[0].strDrink.split(' ').join('+');
+        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyAsSIrxTBBk81EiuwwXluOFKR6_xNKm--A';
+          $.ajax({
+            url: youtubeURL,
+            method: 'GET'
+          }).then(function(response){
+            YouTubeLink = response.items[0].id.videoId;
+            drinkImage.attr('data-video', ('www.youtube.com/watch?v=' + YouTubeLink));
+          })
+
+
     }
   });
