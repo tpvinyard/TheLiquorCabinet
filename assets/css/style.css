@@ -1,22 +1,15 @@
 body {
-  background: #280010;
+  background: white;
 }
 .card {
-  background-image: url(../images/cover-4.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #f72579;
-  width: 650px;
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  margin:auto;
-  border: none; 
-  margin-top:50px;
+  max-height: 400px;
 }
 .row {
   display: flex;
   justify-content: center;
+}
+h1 {
+  color: black;
 }
 input {
   margin: auto;
