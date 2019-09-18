@@ -27,6 +27,9 @@ $(document).ready(function() {
     console.log(queryURL);
     returnedDrinks = response;
     returnedDrinksArray = getDrinkIDArray(returnedDrinks);
+    if(returnedDrinks.drinks == "None Found") {
+      $('#drink-page').html('<h1>No results</h1>');
+    }
     console.log(returnedDrinks)
     for (let i = 0; i < returnedDrinksArray.length; i++) {
         let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
