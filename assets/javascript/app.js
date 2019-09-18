@@ -100,24 +100,30 @@ $(document).ready(function() {
     }
 
     function parseIngredient(selectedDrink) {
-        let ingredientArray = []; //make this global once merged
-        for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
-           
-            ingredientArray.push(tempIngredient);
+      let ingredientArray = []; //make this global once merged
+      for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
+        if (selectedDrink.drinks[0][`strIngredient${i}`] !== " ") {
+          
+          let tempIngredient = selectedDrink.drinks[0][`strIngredient${i}`];
+          ingredientArray.push(tempIngredient);
         }
-        ingredientArray = jQuery.grep(arr, function (n) { return (n); }); //trims empty fields from array
-        return ingredientArray;
-    }
-    
-    function parseMeasurement(selectedDrink) {
-        let measurementArray = []; //make this global once merged
-        for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
-            let tempMeasurement = selectedDrink.drinks.strMeasure[i];
-            measurementArray.push(tempMeasurement);
+      }
+      ingredientArray = jQuery.grep(ingredientArray, function (n) { return (n); }); //trims empty fields from array
+      
+      return ingredientArray;
+  }
+  
+  function parseMeasurement(selectedDrink) {
+      let measurementArray = []; //make this global once merged
+      for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
+        if (selectedDrink.drinks[0][`strMeasure${i}`] !== " ") {
+          let tempMeasurement = selectedDrink.drinks[0][`strMeasure${i}`];
+          measurementArray.push(tempMeasurement);
         }
-        measurementArray = jQuery.grep(arr, function (n) { return (n); }); //trims empty fields from array
-        return measurementArray;
-    }
+      }
+      measurementArray = jQuery.grep(measurementArray, function (n) { return (n); }); //trims empty fields from array
+      return measurementArray;
+  }
     
     function drinkDetailDOM(selectedDrink, ingredients, measurements){ //ingredients and measurements are arrays
         const newIng = $("<div class='ingredients'>");
@@ -152,6 +158,8 @@ $(document).ready(function() {
       newCard.attr('style', 'width: 18rem;');
       newCard.addClass('bg-light');
       newCard.addClass('float-left');
+      let fullObjectData = JSON.stringify(returnedDetails[n]);
+      newCard.attr('data-object', fullObjectData);
       let drinkTitle = $('<h3>');
       let drinkIngredients = $('<p>');
       let drinkImage = $('<img>');
