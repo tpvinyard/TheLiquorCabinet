@@ -100,24 +100,30 @@ $(document).ready(function() {
     }
 
     function parseIngredient(selectedDrink) {
-        let ingredientArray = []; //make this global once merged
-        for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
-           
-            ingredientArray.push(tempIngredient);
+      let ingredientArray = []; //make this global once merged
+      for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
+        if (selectedDrink.drinks[0][`strIngredient${i}`] !== " ") {
+          
+          let tempIngredient = selectedDrink.drinks[0][`strIngredient${i}`];
+          ingredientArray.push(tempIngredient);
         }
-        ingredientArray = jQuery.grep(arr, function (n) { return (n); }); //trims empty fields from array
-        return ingredientArray;
-    }
-    
-    function parseMeasurement(selectedDrink) {
-        let measurementArray = []; //make this global once merged
-        for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
-            let tempMeasurement = selectedDrink.drinks.strMeasure[i];
-            measurementArray.push(tempMeasurement);
+      }
+      ingredientArray = jQuery.grep(ingredientArray, function (n) { return (n); }); //trims empty fields from array
+      
+      return ingredientArray;
+  }
+  
+  function parseMeasurement(selectedDrink) {
+      let measurementArray = []; //make this global once merged
+      for (let i = 0; i < 14; i++) { //API returns a fixed 15 ingredients for every drink
+        if (selectedDrink.drinks[0][`strMeasure${i}`] !== " ") {
+          let tempMeasurement = selectedDrink.drinks[0][`strMeasure${i}`];
+          measurementArray.push(tempMeasurement);
         }
-        measurementArray = jQuery.grep(arr, function (n) { return (n); }); //trims empty fields from array
-        return measurementArray;
-    }
+      }
+      measurementArray = jQuery.grep(measurementArray, function (n) { return (n); }); //trims empty fields from array
+      return measurementArray;
+  }
     
     function drinkDetailDOM(selectedDrink, ingredients, measurements){ //ingredients and measurements are arrays
         const newIng = $("<div class='ingredients'>");
@@ -152,6 +158,8 @@ $(document).ready(function() {
       newCard.attr('style', 'width: 18rem;');
       newCard.addClass('bg-light');
       newCard.addClass('float-left');
+      let fullObjectData = JSON.stringify(returnedDetails[n]);
+      newCard.attr('data-object', fullObjectData);
       let drinkTitle = $('<h3>');
       let drinkIngredients = $('<p>');
       let drinkImage = $('<img>');
@@ -177,29 +185,34 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.card', function() {
-        $('#results-container').empty();
-        populateChoice();
-    })
-    
-    
-    function populateChoice() {
-      let title = $('<h1>');
-      let ingredients = $('<p>');
-      let measures = $('<p>');
-      let images = $('<img>');
-      let video = $('<img>');
+      let objectData = $(this).data('object');
+      console.log(objectData);
       
-      title.text("Title");
-      ingredients.text("Ingredients");
-      measures.text("Measurements");
-      images.attr('src', 'https://via.placeholder.com/150');
-      video.attr('src', 'https://via.placeholder.com/300');
+      
+      $('#results-container').empty();
+      let title = $('<h1>');
+      let ingredients = $('<p>Ingredients: </p>');
+      let measures = $('<p>Measurements: </p>');
+      let images = $('<img>');
+      let video = $('<iframe>');
+      
+      title.text(objectData.drinks[0].strDrink);
+      images.attr('src', objectData.drinks[0].strDrinkThumb);
+      images.attr('height', '200px').attr('width', '200px');
+      let videoSrc = $(this).data('video');
+      video.attr('src', videoSrc);
+      let ingredientArray = parseIngredient(objectData);
+      ingredients.text(ingredientArray);
+      let measurementArray = parseMeasurement(objectData);
+      measures.text(measurementArray);
+      
+
+      
 
       $('#drink-page').append(title);
       $('#drink-page').append(ingredients);
       $('#drink-page').append(measures);
       $('#drink-page').append(images);
       $('#drink-page').append(video);
-      
-    }
+    })
   });
