@@ -43,7 +43,8 @@ $(document).ready(function() {
                 })
             }
         });
-        
+        $('#results-container').empty();
+        $('#drink-page').empty();
       });
  
   
@@ -173,5 +174,32 @@ $(document).ready(function() {
           })
 
 
+    }
+
+    $(document).on('click', '.card', function() {
+        $('#results-container').empty();
+        populateChoice();
+    })
+    
+    
+    function populateChoice() {
+      let title = $('<h1>');
+      let ingredients = $('<p>');
+      let measures = $('<p>');
+      let images = $('<img>');
+      let video = $('<img>');
+      
+      title.text("Title");
+      ingredients.text("Ingredients");
+      measures.text("Measurements");
+      images.attr('src', 'https://via.placeholder.com/150');
+      video.attr('src', 'https://via.placeholder.com/300');
+
+      $('#drink-page').append(title);
+      $('#drink-page').append(ingredients);
+      $('#drink-page').append(measures);
+      $('#drink-page').append(images);
+      $('#drink-page').append(video);
+      
     }
   });
