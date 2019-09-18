@@ -177,29 +177,34 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.card', function() {
-        $('#results-container').empty();
-        populateChoice();
-    })
-    
-    
-    function populateChoice() {
-      let title = $('<h1>');
-      let ingredients = $('<p>');
-      let measures = $('<p>');
-      let images = $('<img>');
-      let video = $('<img>');
+      let objectData = $(this).data('object');
+      console.log(objectData);
       
-      title.text("Title");
-      ingredients.text("Ingredients");
-      measures.text("Measurements");
-      images.attr('src', 'https://via.placeholder.com/150');
-      video.attr('src', 'https://via.placeholder.com/300');
+      
+      $('#results-container').empty();
+      let title = $('<h1>');
+      let ingredients = $('<p>Ingredients: </p>');
+      let measures = $('<p>Measurements: </p>');
+      let images = $('<img>');
+      let video = $('<iframe>');
+      
+      title.text(objectData.drinks[0].strDrink);
+      images.attr('src', objectData.drinks[0].strDrinkThumb);
+      images.attr('height', '200px').attr('width', '200px');
+      let videoSrc = $(this).data('video');
+      video.attr('src', videoSrc);
+      let ingredientArray = parseIngredient(objectData);
+      ingredients.text(ingredientArray);
+      let measurementArray = parseMeasurement(objectData);
+      measures.text(measurementArray);
+      
+
+      
 
       $('#drink-page').append(title);
       $('#drink-page').append(ingredients);
       $('#drink-page').append(measures);
       $('#drink-page').append(images);
       $('#drink-page').append(video);
-      
-    }
+    })
   });
