@@ -2,9 +2,11 @@ body {
   background: white;
 }
 .card {
-  max-height: 400px;
+  max-height: 350px;
   padding: 10px;
   margin: 10px;
+  overflow: scroll;
+  min-height: 350px;
 }
 #title-text {
   font-family: 'Kalam', cursive;
