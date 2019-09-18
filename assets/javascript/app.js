@@ -5,7 +5,7 @@ $(document).ready(function() {
   // for testing purposes
   let additionalIngredientsArray = [];
   
-
+ 
   $("#submit-button").on("click", function() {
     let inputAlcohol = $("#searchAlcohol").val();
 
