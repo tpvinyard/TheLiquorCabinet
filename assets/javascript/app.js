@@ -63,6 +63,7 @@ $(document).ready(function() {
     additionalIngredients.attr("class", "ingredient");
     additionalIngredients.addClass("btn");
     additionalIngredients.addClass("btn-secondary");
+    additionalIngredients.addClass("ingredient-button");
     additionalIngredientsArray.push(searchValue);
     $("#ingredientContainer").append(additionalIngredients);
     
