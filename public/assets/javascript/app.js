@@ -62,6 +62,8 @@ $(document).ready(function() {
                         //returns full array for parsing ingredients
                     })
         }
+        ingredientArrayToText = '';
+        queryURL = '';
       });
     $('#results-container').empty();
     $('#drink-page').empty();
@@ -200,7 +202,7 @@ $(document).ready(function() {
 
       $('#results-container').append(newCard);
         let cocktailNameFormatted = returnedDetails[n].drinks[0].strDrink.split(' ').join('+');
-        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyBYlAoPULwCWlKBq4uDQmcOn9wQBISCQKU';
+        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyAH4mvzsUQzyINjea5nKFf4aDgbn4f7qp8';
           $.ajax({
             url: youtubeURL,
             method: 'GET'
@@ -265,5 +267,13 @@ $(document).ready(function() {
       $('#drink-page').append(instructions);
       $('#drink-page').append(images);
       $('#drink-page').append(video);
+
+
+      additionalIngredientsArray = [];
+      returnedDrinks = [];
+      returnedDetails = [];
+      returnedDrinksArray = [];
+      YouTubeLink = '';
+      count = 0;
     })
   });
