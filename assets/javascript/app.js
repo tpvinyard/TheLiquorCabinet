@@ -7,10 +7,26 @@ $(document).ready(function() {
   let additionalIngredientsArray = [];
   let YouTubeLink = '';
   let count = 0;
+
+  $(function () {
+    $('#main-form').parsley().on('form:submit', function() {
+      clearSearch();
+      return false;
+    });
+    $('#searchAlcohol').parsley().on('field:error', function() {
+      $('#submit-button').attr("disabled", true);
+      $('#add-ingredients').attr("disabled", true);
+    })
+    $('#searchAlcohol').parsley().on('field:success', function() {
+      $('#submit-button').attr("disabled", false);
+      $('#add-ingredients').attr("disabled", false);
+    })
+  });
   
  
   $("#submit-button").on("click", function() {
-    let inputAlcohol = $("#searchAlcohol").val();
+    
+    let inputAlcohol = $("#searchAlcohol").val().trim();
 
     let ingredientArrayToText = additionalIngredientsArray.join(",");
 
@@ -20,35 +36,38 @@ $(document).ready(function() {
 
     let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
 
-    $.ajax({
+    $('#main-form').parsley().on('form:input', function() {
+      $.ajax({
       url: queryURL,
       method: "GET"
-    }).then(function(response) {
-    console.log(queryURL);
-    returnedDrinks = response;
-    returnedDrinksArray = getDrinkIDArray(returnedDrinks);
-    if(returnedDrinks.drinks == "None Found") {
-      $('#drink-page').html('<h1>No results</h1>');
-    }
-    console.log(returnedDrinks)
-    for (let i = 0; i < returnedDrinksArray.length; i++) {
-        let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
-                $.ajax({
-                    url: queryDrinksUrl,
-                    method: "GET"
-                })
-                .then(function(response){
-                    returnedDetails.push(response);
-                    loadResults(count);
-                    count++;
-                    
-                     //returns full array for parsing ingredients
-                })
-            }
-        });
-        $('#results-container').empty();
-        $('#drink-page').empty();
+      }).then(function(response) {
+        console.log(queryURL);
+        returnedDrinks = response;
+        returnedDrinksArray = getDrinkIDArray(returnedDrinks);
+        if(returnedDrinks.drinks == "None Found") {
+          $('#drink-page').html('<h1>No results</h1>');
+        }
+        console.log(returnedDrinks)
+        for (let i = 0; i < returnedDrinksArray.length; i++) {
+            let queryDrinksUrl = "https://www.thecocktaildb.com/api/json/v2/8673533/lookup.php?i=" + returnedDrinksArray[i];
+                    $.ajax({
+                        url: queryDrinksUrl,
+                        method: "GET"
+                    })
+                    .then(function(response){
+                        returnedDetails.push(response);
+                        loadResults(count);
+                        count++;
+                        
+                        //returns full array for parsing ingredients
+                    })
+        }
       });
+    $('#results-container').empty();
+    $('#drink-page').empty();
+    });
+    
+  });
  
   
     function getDrinkIDArray(response) {
@@ -72,17 +91,20 @@ $(document).ready(function() {
     
   }
 
-    $("#add-ingredients").on("click", function() {   
+    $("#add-ingredients").on("click", function() { 
       searchValue = $("#searchAlcohol")
         .val()
         .trim();
 
-      if (!searchValue == "") {
-        addIngredient();
-        clearSearch();
-      }
+ //     $('#main-form').parsley().on('form:submit', function() {
+        if (!searchValue == "") {
 
-      updateLocalStorage();
+          addIngredient();
+
+        }
+
+        updateLocalStorage();
+ //     });
     });
     
     $(document).on('click', '.ingredient', function(){
@@ -196,7 +218,8 @@ $(document).ready(function() {
 
       console.log(objectData);
       
-      
+      let resultCard = $('<div class="card">');
+
       $('#results-container').empty();
       let title = $('<h1>');
       let ingredients = $('<p>Ingredients: </p>');
@@ -211,15 +234,12 @@ $(document).ready(function() {
       title.text(objectData.drinks[0].strDrink);
       title.addClass('title-detail');
       images.attr('src', objectData.drinks[0].strDrinkThumb);
-      images.attr('height', '350px').attr('width', '350px');
+      images.attr('height', '350px').attr('width', '350px').attr('style', 'margin-bottom: 15px;');
       let ingredientArray = parseIngredient(objectData);
       ingredients.text(ingredientArray);
       let measurementArray = parseMeasurement(objectData);
       measures.text(measurementArray);
       
-
-      
-
       $('#drink-page').append(title);
       let list = $('<div style= "text-align: center;">');
       let left = $('<div style="display: inline-block; text-align: left; width: 35%;">');
@@ -239,6 +259,7 @@ $(document).ready(function() {
       list.append(left);
       list.append(right);
       $('#drink-page').append(list);
+      $('#drink-page').append('<br>');
       // $('#drink-page').append(ingredients);
       // $('#drink-page').append(measures);
       $('#drink-page').append(instructions);

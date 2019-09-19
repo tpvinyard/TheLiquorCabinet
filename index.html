@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="http://parsleyjs.org/dist/parsley.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="assets/javascript/app.js"></script>
@@ -21,17 +22,19 @@
           <div class="card-body">
               <div class="offset-md-3 col-md-6">
                 <h1 id="title-text">The Liquor Cabinet</h1>
-                <div class="btn-space">
-                  <div class="form-group form-inline">
-                    <input type="text" class="form-control" id="searchAlcohol" placeholder="Enter an ingredient">
-                    <button type="button" class="btn btn-primary" id="submit-button">Search</button>
+                <form id="main-form" data-parsley-validate="">
+                  <div class="btn-space">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="searchAlcohol" placeholder="Enter an ingredient" data-parsley-pattern="[A-Za-z0-9 ]+">
+                      <button type="submit" class="btn btn-primary" id="submit-button" value="validate">Search</button>
+                    </div>
                   </div>
+                  <button type="submit" class="btn btn-secondary" id="add-ingredients" value="validate">+ Add Ingredients</button>
+                  <div id="ingredientContainer"></div>
+                  <br>
+                  <br>
+                </form>
               </div>
-            <button type="button" class="btn btn-secondary" id="add-ingredients">+ Add Ingredients</button>
-            <div id="ingredientContainer"></div>
-            <br>
-            <br>
-          </div>
         </div>
         </div>
         <div class="row">
