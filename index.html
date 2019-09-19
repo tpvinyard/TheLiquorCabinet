@@ -25,7 +25,7 @@
                 <form id="main-form" data-parsley-validate="">
                   <div class="btn-space">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="searchAlcohol" placeholder="Enter an ingredient" required="" data-parsley-type="alphanum">
+                      <input type="text" class="form-control" id="searchAlcohol" placeholder="Enter an ingredient" data-parsley-pattern="[A-Za-z0-9 ]+">
                       <button type="submit" class="btn btn-primary" id="submit-button" value="validate">Search</button>
                     </div>
                   </div>
