@@ -7,9 +7,17 @@ $(document).ready(function() {
   let additionalIngredientsArray = [];
   let YouTubeLink = '';
   let count = 0;
+
+  $(function () {
+    $('#main-form').parsley().on('form:submit', function() {
+      clearSearch();
+      return false;
+    });
+  });
   
  
   $("#submit-button").on("click", function() {
+
     let inputAlcohol = $("#searchAlcohol").val();
 
     let ingredientArrayToText = additionalIngredientsArray.join(",");
@@ -72,14 +80,14 @@ $(document).ready(function() {
     
   }
 
-    $("#add-ingredients").on("click", function() {   
+    $("#add-ingredients").on("click", function() { 
       searchValue = $("#searchAlcohol")
         .val()
         .trim();
 
       if (!searchValue == "") {
         addIngredient();
-        clearSearch();
+
       }
 
       updateLocalStorage();
@@ -196,7 +204,8 @@ $(document).ready(function() {
 
       console.log(objectData);
       
-      
+      let resultCard = $('<div class="card">');
+
       $('#results-container').empty();
       let title = $('<h1>');
       let ingredients = $('<p>Ingredients: </p>');
@@ -211,15 +220,12 @@ $(document).ready(function() {
       title.text(objectData.drinks[0].strDrink);
       title.addClass('title-detail');
       images.attr('src', objectData.drinks[0].strDrinkThumb);
-      images.attr('height', '350px').attr('width', '350px');
+      images.attr('height', '350px').attr('width', '350px').attr('style', 'margin-bottom: 15px;');
       let ingredientArray = parseIngredient(objectData);
       ingredients.text(ingredientArray);
       let measurementArray = parseMeasurement(objectData);
       measures.text(measurementArray);
       
-
-      
-
       $('#drink-page').append(title);
       let list = $('<div style= "text-align: center;">');
       let left = $('<div style="display: inline-block; text-align: left; width: 35%;">');
@@ -239,6 +245,7 @@ $(document).ready(function() {
       list.append(left);
       list.append(right);
       $('#drink-page').append(list);
+      $('#drink-page').append('<br>');
       // $('#drink-page').append(ingredients);
       // $('#drink-page').append(measures);
       $('#drink-page').append(instructions);
