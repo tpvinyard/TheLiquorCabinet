@@ -43,9 +43,16 @@ input {
 }
 #drink-page {
   padding: 20px;
+  text-align: center;
 }
 .ingredient-button {
   margin-top: 10px;
   margin-right: 6px;
   padding: 6px 40px;
+}
+.title-detail {
+  font-family: 'Kalam', cursive;
+  text-align: center;
+  font-size: 250%;
+  margin-bottom: 20px;
 }
