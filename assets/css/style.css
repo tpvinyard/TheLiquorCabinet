@@ -10,6 +10,7 @@ body {
 }
 #title-text {
   font-family: 'Kalam', cursive;
+  font-size: 350%;
   margin-bottom: 20px;
 }
 h3 {
@@ -28,7 +29,6 @@ input {
 .btn-space {
   display: flex;
   flex-direction: row;
-
 }
 #searchAlcohol{
   margin-right: 15px;
@@ -39,12 +39,13 @@ input {
   margin: auto;
 }
 #add-ingredients{
-  margin-top: 15px;
+  margin-top: 10px;
 }
 #drink-page {
   padding: 20px;
 }
 .ingredient-button {
-  margin: 6px;
-  padding: 8px 40px;
+  margin-top: 10px;
+  margin-right: 6px;
+  padding: 6px 40px;
 }
