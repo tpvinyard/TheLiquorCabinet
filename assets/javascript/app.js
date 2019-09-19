@@ -176,13 +176,13 @@ $(document).ready(function() {
 
       $('#results-container').append(newCard);
         let cocktailNameFormatted = returnedDetails[n].drinks[0].strDrink.split(' ').join('+');
-        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyAsSIrxTBBk81EiuwwXluOFKR6_xNKm--A';
+        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyCjQwnb9DvJGTtKqWC01knY7JqSiW-mu1M';
           $.ajax({
             url: youtubeURL,
             method: 'GET'
           }).then(function(response){
             YouTubeLink = response.items[0].id.videoId;
-            drinkImage.attr('data-video', ('www.youtube.com/watch?v=' + YouTubeLink));
+            newCard.attr('data-video', ('https://www.youtube.com/embed/' + YouTubeLink));
           })
 
 
@@ -190,6 +190,8 @@ $(document).ready(function() {
 
     $(document).on('click', '.card', function() {
       let objectData = $(this).data('object');
+      let videoSrc = $(this).data('video');
+
       console.log(objectData);
       
       
@@ -198,13 +200,12 @@ $(document).ready(function() {
       let ingredients = $('<p>Ingredients: </p>');
       let measures = $('<p>Measurements: </p>');
       let images = $('<img>');
-      let video = $('<iframe>');
+      let video = $('<div>');
+      video.html(`<iframe width="560" height="315" src="${videoSrc}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
       
       title.text(objectData.drinks[0].strDrink);
       images.attr('src', objectData.drinks[0].strDrinkThumb);
       images.attr('height', '200px').attr('width', '200px');
-      let videoSrc = $(this).data('video');
-      video.attr('src', videoSrc);
       let ingredientArray = parseIngredient(objectData);
       ingredients.text(ingredientArray);
       let measurementArray = parseMeasurement(objectData);
