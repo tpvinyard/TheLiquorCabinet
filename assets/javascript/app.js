@@ -207,6 +207,7 @@ $(document).ready(function() {
       video.html(`<iframe width="560" height="315" src="${videoSrc}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
       instructions.text(objectData.drinks[0].strInstructions); //Instructions added 18Sep Kirk
       instructions.addClass('offset-md-3 col-md-6');
+      instructions.attr('style', 'clear: both;');
       title.text(objectData.drinks[0].strDrink);
       title.addClass('title-detail');
       images.attr('src', objectData.drinks[0].strDrinkThumb);
@@ -220,8 +221,26 @@ $(document).ready(function() {
       
 
       $('#drink-page').append(title);
-      $('#drink-page').append(ingredients);
-      $('#drink-page').append(measures);
+      let list = $('<div style= "text-align: center;">');
+      let left = $('<div style="display: inline-block; text-align: left; width: 35%;">');
+      let right = $('<div style="display: inline-block; text-align: left; width: 15%;">');
+      left.append('<ul>');
+      right.append('<ul>');
+      for (i = 0; i < ingredientArray.length; i++) {
+        left.append('<li>' + ingredientArray[i] + '</li>');
+        right.append('<li>' + measurementArray[i] + '</li>');
+      }
+      left.append('</ul>');
+      right.append('</ul>');
+      left.append('</div>');
+      right.append('</div>');
+      // left.addClass('offset-md-3 col-md-6');
+      // right.addClass('offset-md-3 col-md-6');
+      list.append(left);
+      list.append(right);
+      $('#drink-page').append(list);
+      // $('#drink-page').append(ingredients);
+      // $('#drink-page').append(measures);
       $('#drink-page').append(instructions);
       $('#drink-page').append(images);
       $('#drink-page').append(video);
