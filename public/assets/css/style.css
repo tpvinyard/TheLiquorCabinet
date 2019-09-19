@@ -1,5 +1,9 @@
 body {
-  background: white;
+  background:black;
+  background-image: url(../images/images.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 input.parsley-success,
 select.parsley-success,
@@ -59,7 +63,7 @@ h3 {
   justify-content: center;
 }
 h1 {
-  color: black;
+  color: white;
 }
 input {
   margin: auto;
