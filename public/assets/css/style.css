@@ -1,8 +1,19 @@
 body {
-  background: white;
+  background: rgb(134, 72, 72);
 }
 .card {
-  max-height: 400px;
+  max-height: 350px;
+  padding: 10px;
+  margin: 10px;
+  overflow: scroll;
+  min-height: 350px;
+}
+#title-text {
+  font-family: 'Kalam', cursive;
+  margin-bottom: 20px;
+}
+h3 {
+  margin-top: 5px;
 }
 .row {
   display: flex;
@@ -29,4 +40,11 @@ input {
 }
 #add-ingredients{
   margin-top:15px;
+}
+#drink-page {
+  padding: 20px;
+}
+.ingredient-button {
+  margin-top: 6px;
+  padding: 8px 40px;
 }

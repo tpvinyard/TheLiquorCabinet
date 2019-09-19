@@ -9,6 +9,34 @@ $(document).ready(function() {
   let count = 0;
   
  
+  //login function
+  $(document).on("click", ".a2", function googleLogin() {
+      
+    // document.addEventListener("DOMContentLoaded", (event) => {
+    //     const app = firebase.app();
+    //     console.log(app);
+    //   });
+    //   const app = firebase.app();
+    //     console.log(app);
+      // a function that logs the user-in
+    //   function googleLogin() {
+        //   console.log('google is clicking');
+          const app = firebase.app();
+        console.log(app);
+          
+        const provider = new firebase.auth.GoogleAuthProvider();
+    
+        firebase
+          .auth().signInWithPopup(provider)
+    
+          .then(result => {
+            const user = result.user;
+            document.write(`Hii, ${user.displayName}`);
+            console.log(user);
+          })
+          .catch(console.log);
+      });
+      //
   $("#submit-button").on("click", function() {
     let inputAlcohol = $("#searchAlcohol").val();
 
