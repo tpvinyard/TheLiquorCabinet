@@ -25,6 +25,8 @@ $(document).ready(function() {
   
  
   $("#submit-button").on("click", function() {
+
+    console.log('inside button');
     
     let inputAlcohol = $("#searchAlcohol").val().trim();
 
@@ -33,7 +35,7 @@ $(document).ready(function() {
     if (!inputAlcohol == "") {
       ingredientArrayToText = "," + ingredientArrayToText;
     }
-
+    
     let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
 
     $('#main-form').parsley().on('form:submit', function() {

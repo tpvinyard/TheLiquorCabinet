@@ -1,6 +1,6 @@
 body {
   background:black;
-  background-image: url(../images/images.jpeg);
+  background-image: url(../images/liquorcabinet.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -87,6 +87,7 @@ input {
 #drink-page {
   padding: 20px;
   text-align: center;
+  color: white;
 }
 .ingredient-button {
   margin-top: 10px;
