@@ -39,12 +39,12 @@ input {
   margin: auto;
 }
 #add-ingredients{
-  margin-top:15px;
+  margin-top: 15px;
 }
 #drink-page {
   padding: 20px;
 }
 .ingredient-button {
-  margin-top: 6px;
+  margin: 6px;
   padding: 8px 40px;
 }
