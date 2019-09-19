@@ -36,7 +36,7 @@ $(document).ready(function() {
 
     let queryURL = "https://www.thecocktaildb.com/api/json/v2/8673533/filter.php?i=" + inputAlcohol + ingredientArrayToText;
 
-    $('#main-form').parsley().on('form:input', function() {
+    $('#main-form').parsley().on('form:submit', function() {
       $.ajax({
       url: queryURL,
       method: "GET"
@@ -200,7 +200,7 @@ $(document).ready(function() {
 
       $('#results-container').append(newCard);
         let cocktailNameFormatted = returnedDetails[n].drinks[0].strDrink.split(' ').join('+');
-        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyCjQwnb9DvJGTtKqWC01knY7JqSiW-mu1M';
+        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyBYlAoPULwCWlKBq4uDQmcOn9wQBISCQKU';
           $.ajax({
             url: youtubeURL,
             method: 'GET'
