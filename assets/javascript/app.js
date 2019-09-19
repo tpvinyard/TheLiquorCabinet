@@ -164,12 +164,14 @@ $(document).ready(function() {
       newCard.addClass('float-left');
       let fullObjectData = JSON.stringify(returnedDetails[n]);
       newCard.attr('data-object', fullObjectData);
-      let drinkTitle = $('<h3>');
+      let drinkTitle = $('<h4>');
       let drinkIngredients = $('<p>');
       let drinkImage = $('<img>');
       drinkTitle.addClass('card-title').text(returnedDetails[n].drinks[0].strDrink);
+      drinkTitle.addClass('text-center');
       drinkIngredients.addClass('card-text').text(returnedDetails[n].drinks[0].strIngredient1 + ', ' + returnedDetails[n].drinks[0].strIngredient2 + ', ' + returnedDetails[n].drinks[0].strIngredient3);
       drinkImage.addClass('card-img-top').attr('src', returnedDetails[n].drinks[0].strDrinkThumb);
+      drinkIngredients.addClass('text-center');
       newCard.append(drinkImage);
       newCard.append(drinkTitle);
       newCard.append(drinkIngredients);
@@ -199,13 +201,16 @@ $(document).ready(function() {
       let title = $('<h1>');
       let ingredients = $('<p>Ingredients: </p>');
       let measures = $('<p>Measurements: </p>');
+      let instructions = $('<p>Mixing Instructions:');
       let images = $('<img>');
       let video = $('<div>');
       video.html(`<iframe width="560" height="315" src="${videoSrc}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
-      
+      instructions.text(objectData.drinks[0].strInstructions); //Instructions added 18Sep Kirk
+      instructions.addClass('offset-md-3 col-md-6');
       title.text(objectData.drinks[0].strDrink);
+      title.addClass('title-detail');
       images.attr('src', objectData.drinks[0].strDrinkThumb);
-      images.attr('height', '200px').attr('width', '200px');
+      images.attr('height', '350px').attr('width', '350px');
       let ingredientArray = parseIngredient(objectData);
       ingredients.text(ingredientArray);
       let measurementArray = parseMeasurement(objectData);
@@ -217,6 +222,7 @@ $(document).ready(function() {
       $('#drink-page').append(title);
       $('#drink-page').append(ingredients);
       $('#drink-page').append(measures);
+      $('#drink-page').append(instructions);
       $('#drink-page').append(images);
       $('#drink-page').append(video);
     })
