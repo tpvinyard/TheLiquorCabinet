@@ -1,9 +1,13 @@
 body {
   background:black;
-  background-image: url(../images/liquorcabinet.jpg);
+  background-image: url(../images/cover-4.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
 
+}
+.container{
+  /* width:800px; */
+  height: 500px;
 }
 input.parsley-success,
 select.parsley-success,
@@ -62,8 +66,14 @@ h3 {
   display: flex;
   justify-content: center;
 }
+.nav-row{
+ font:white;
+}
 h1 {
   color: white;
+}
+.container{
+  margin:1% 1%;
 }
 input {
   margin: auto;
@@ -76,13 +86,13 @@ input {
   margin-right: 15px;
 }
 #submit-button {
-  display: flex;
+  display: block;
   justify-content: center;
   margin-top: 25px;
   padding: 6px 52px;
 }
 #add-ingredients{
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 #drink-page {
   padding: 20px;
