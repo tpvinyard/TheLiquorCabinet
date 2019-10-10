@@ -1,14 +1,10 @@
 body {
   background:black;
-  background-image: url(../images/cover-4.jpeg);
+  background-image: url(../images/liquorcabinet.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+}
 
-}
-.container{
-  /* width:800px; */
-  height: 500px;
-}
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
@@ -59,54 +55,20 @@ textarea.parsley-error {
   font-size: 350%;
   margin-bottom: 20px;
 }
-h3 {
-  margin-top: 5px;
-}
-.row {
-  display: flex;
-  justify-content: center;
-}
-.nav-row{
- font:white;
-}
 h1 {
   color: white;
 }
-.container{
-  margin:1% 1%;
-}
-input {
-  margin: auto;
-}
-.btn-space {
-  display: flex;
-  flex-direction: row;
-}
-#searchAlcohol{
-  margin-right: 15px;
-}
-#submit-button {
-  display: block;
-  justify-content: center;
-  margin-top: 25px;
-  padding: 6px 52px;
-}
-#add-ingredients{
-  margin-bottom: 10px;
-}
-#drink-page {
-  padding: 20px;
-  text-align: center;
+
+#searchAlcohol {
   color: white;
 }
-.ingredient-button {
-  margin-top: 10px;
-  margin-right: 6px;
-  padding: 6px 40px;
+
+/* label focus color */
+.input-field input:focus + label {
+  color: #d50000 !important;
 }
-.title-detail {
-  font-family: 'Kalam', cursive;
-  text-align: center;
-  font-size: 250%;
-  margin-bottom: 20px;
+/* label underline focus color */
+.row .input-field input:focus {
+  border-bottom: 1px solid #d50000 !important;
+  box-shadow: 0 1px 0 0 #d50000 !important
 }

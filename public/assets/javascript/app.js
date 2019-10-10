@@ -82,11 +82,11 @@ $(document).ready(function() {
 
 
   function addIngredient() {
-    let additionalIngredients = $("<button>");
-    additionalIngredients.text(searchValue);
+    let additionalIngredients = $("<div>");
+    additionalIngredients.html(`${searchValue} <i class="close material-icons text-white">close</i>`);
     additionalIngredients.attr("class", "ingredient");
-    additionalIngredients.addClass("btn");
-    additionalIngredients.addClass("btn-secondary");
+    additionalIngredients.attr("class", "red accent-4 text-white");
+    additionalIngredients.addClass("chip");
     additionalIngredients.addClass("ingredient-button");
     additionalIngredientsArray.push(searchValue);
     $("#ingredientContainer").append(additionalIngredients);
@@ -201,22 +201,27 @@ $(document).ready(function() {
       newCard.append(drinkIngredients);
 
       $('#results-container').append(newCard);
-        let cocktailNameFormatted = returnedDetails[n].drinks[0].strDrink.split(' ').join('+');
-        let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyAH4mvzsUQzyINjea5nKFf4aDgbn4f7qp8';
-          $.ajax({
-            url: youtubeURL,
-            method: 'GET'
-          }).then(function(response){
-            YouTubeLink = response.items[0].id.videoId;
-            newCard.attr('data-video', ('https://www.youtube.com/embed/' + YouTubeLink));
-          })
+
 
 
     }
 
     $(document).on('click', '.card', function() {
+
       let objectData = $(this).data('object');
-      let videoSrc = $(this).data('video');
+
+      let cocktailNameFormatted = objectData.drinks[0].strDrink.split(' ').join('+');
+      let youtubeURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + cocktailNameFormatted + '+cocktail&key=AIzaSyAH4mvzsUQzyINjea5nKFf4aDgbn4f7qp8';
+        $.ajax({
+          url: youtubeURL,
+          method: 'GET'
+        }).then(function(response){
+          YouTubeLink = response.items[0].id.videoId;
+          let videoSrc = `https://www.youtube.com/embed/${YouTubeLink}`;
+          let video = $('<div>');
+          video.html(`<iframe width="560" height="315" src="${videoSrc}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)    
+          $('#drink-page').append(video);
+        })
 
       console.log(objectData);
       
@@ -228,9 +233,7 @@ $(document).ready(function() {
       let measures = $('<p>Measurements: </p>');
       let instructions = $('<p>Mixing Instructions:');
       let images = $('<img>');
-      let video = $('<div>');
-      video.html(`<iframe width="560" height="315" src="${videoSrc}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
-      instructions.text(objectData.drinks[0].strInstructions); //Instructions added 18Sep Kirk
+       instructions.text(objectData.drinks[0].strInstructions); //Instructions added 18Sep Kirk
       instructions.addClass('offset-md-3 col-md-6');
       instructions.attr('style', 'clear: both;');
       title.text(objectData.drinks[0].strDrink);
@@ -266,7 +269,7 @@ $(document).ready(function() {
       // $('#drink-page').append(measures);
       $('#drink-page').append(instructions);
       $('#drink-page').append(images);
-      $('#drink-page').append(video);
+
 
 
       additionalIngredientsArray = [];
