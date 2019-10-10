@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)https://login.orionadvisor.com/ -->
+<html ng-app="orionLogin" class="ng-scope"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Portal">
+
+    <title>Login</title>
+
+    <style type="text/css">
+        .ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="./Login_files/site.min.css">
+
+
+    <style type="text/css">
+        form {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            padding: 0;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        iframe[seamless] {
+            border: 0;
+            width: 100%;
+        }
+
+        .form-section.ng-enter, .form-section.ng-leave {
+            transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+            position: absolute;
+            left: 15px;
+            right: 15px;
+        }
+
+        .form-section.ng-enter,
+        .form-section.ng-leave.ng-leave-active {
+            opacity: 0;
+        }
+
+        .form-section.ng-leave,
+        .form-section.ng-enter.ng-enter-active {
+            opacity: 1;
+        }
+
+        /* for IE9 placeholder polyfill */
+        .empty {
+            color: #999;
+        }
+
+        /* bootstrap ui datepicker */
+        table[dp] {
+            margin: 0 5px;
+        }
+
+        table[dp] button {
+            color: #333;
+            padding: 2px 7px;
+        }
+
+        table[dp] .btn-info {
+            color: #FFF;
+            font-weight: bold;
+            background-color: #999999;
+            box-shadow: none;
+            border-radius: 2px !important;
+        }
+
+        /* end - bootstrap ui datepicker */
+    </style>
+</head>
+<body class="ng-scope" ng-controller="AppCtrl">
+
+<form class="form-horizontal ng-valid ng-dirty ng-valid-parse" ng-style="{height: current.formHeight}" style="height: 400px;">
+    <!-- ngIf: !current.hideLogo && current.mainLogoUrl --><div class="form-group ng-scope" ng-if="!current.hideLogo &amp;&amp; current.mainLogoUrl">
+        <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-5 col-lg-4 col-lg-offset-6">
+            <img oas-img-src="/Public/Databases/70b73f93-3ee6-4342-965f-a487abfce77d/Image?entity=Advisor&amp;entityId=" requires-token="false" src="./Login_files/Image" alt="logo" class="img-responsive" style="margin: 0 auto;">
+        </div>
+    </div><!-- end ngIf: !current.hideLogo && current.mainLogoUrl -->
+    <!-- ngIf: current.loginMsgs.length -->
+    <ng-switch on="current.mode">
+        <!-- ngSwitchWhen: login-old -->
+        <!-- ngSwitchWhen: login --><div ng-switch-when="login" class="form-section ng-scope">
+            <div class="form-group">
+                <label class="sr-only" for="txtUsername">Username</label>
+                <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-5 col-lg-4 col-lg-offset-6">
+                    <input id="txtUsername" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" placeholder="Username" ng-model="current.username" autocomplete="off" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAkCAYAAADo6zjiAAAAAXNSR0IArs4c6QAAAz5JREFUWAndWL1LY0EQn7xEBTWinmDuLk1UEEmhwcbuROT+hvNiZyVYpbASbCzk/o/ACVapUkkCAe1iQAsbPzmjoFFMUBST3Pz2ssv7yHtqfA/hFsLO1878dvbN7KqPeKytrX19fn7+xeR0vV7/Aplbw+fznbOvTCAQWF5ZWflj9utrBC9w4E9mpZs8A7lmEONmEBp27nVwbAQxGlk27Etjbtog8ZaxxNLcPnMn/M1iIQMfOv5vAGNjY5RIJAiz3fA0A9FolHp6egiz3fAUANe+iCvnZiA8BdAsoFlmANDR0UHDw8PU19dntqNWdRZHJkFA8r29vbSwsEDBYJBqtRqlUina3d0V6lZ10rfTrDIwNTUlgsNY0zSamZlR61rVKQcOhALgYOOpSgHY2dmhcrksguEItra2VOBWdcqBA+FbXV2tSz0+tHA4TKVSiW5ubqRYzE46g+ELDJdkkU2yjffBmQHAC2tdVTOQEoOYUEfgqvdXOOObsR/vgw8D0MD4TfWBV4B2NPH7/RSLxUTfR99AP7m/v6eLiwva3t6mo6Mjy3rOwmfXAMTjcRoaGjIEwUWE38jICG1sbNDBwYFBD8a1I8hkMnj3id/t7S1VKhUVDI1tcnJS8XrCtQycnp6K9n18fKxKeH5+XuweAXFEzUaAy+G82VutmfFLsnw+r0xk+qVgb29PkoYZGcjw76dB+g5maWlJ3Jzd3d2EdwCXGuVyOdKD07vX0JHY8FovfA89MDAgKgDBMfb39+nw8NDWpZ97fnl2djbJxxDiRfjrKGhr/QpFJBKhx8dHamtrI94chUIhUZ74QE9OTiwe/sG0iO0F+rvD3oqovb2d5ubmCIAwcMGtr6/T09OTYZlrZTg4OGhwjEBXV1dKhlLs6upSvCRcK8PFxUW6vLykYrEoOiCedaOjozIOPTw8qPJUQiZcAwCnyII5EzJYOp2WpGF+8xHwh4r73DJQ59ilfsgPL5lMUqFQ0KsEDV+tZCDLq3+YvW1uboq6R/13dnaKj+3u7o6q1arZVM9n3wwAfYOby3feXb/eE2jsGM86+bQz6/U87x4PkuU3HwH/h+OMF06wg992x6EPZKaxBmvhA77+AtwhRvYQqQFKAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="txtPassword">Password</label>
+                <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-5 col-lg-4 col-lg-offset-6">
+                    <input id="txtPassword" type="password" class="form-control ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse" placeholder="Password" ng-model="current.password" autocomplete="off" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAkCAYAAADo6zjiAAAAAXNSR0IArs4c6QAAAz5JREFUWAndWL1LY0EQn7xEBTWinmDuLk1UEEmhwcbuROT+hvNiZyVYpbASbCzk/o/ACVapUkkCAe1iQAsbPzmjoFFMUBST3Pz2ssv7yHtqfA/hFsLO1878dvbN7KqPeKytrX19fn7+xeR0vV7/Aplbw+fznbOvTCAQWF5ZWflj9utrBC9w4E9mpZs8A7lmEONmEBp27nVwbAQxGlk27Etjbtog8ZaxxNLcPnMn/M1iIQMfOv5vAGNjY5RIJAiz3fA0A9FolHp6egiz3fAUANe+iCvnZiA8BdAsoFlmANDR0UHDw8PU19dntqNWdRZHJkFA8r29vbSwsEDBYJBqtRqlUina3d0V6lZ10rfTrDIwNTUlgsNY0zSamZlR61rVKQcOhALgYOOpSgHY2dmhcrksguEItra2VOBWdcqBA+FbXV2tSz0+tHA4TKVSiW5ubqRYzE46g+ELDJdkkU2yjffBmQHAC2tdVTOQEoOYUEfgqvdXOOObsR/vgw8D0MD4TfWBV4B2NPH7/RSLxUTfR99AP7m/v6eLiwva3t6mo6Mjy3rOwmfXAMTjcRoaGjIEwUWE38jICG1sbNDBwYFBD8a1I8hkMnj3id/t7S1VKhUVDI1tcnJS8XrCtQycnp6K9n18fKxKeH5+XuweAXFEzUaAy+G82VutmfFLsnw+r0xk+qVgb29PkoYZGcjw76dB+g5maWlJ3Jzd3d2EdwCXGuVyOdKD07vX0JHY8FovfA89MDAgKgDBMfb39+nw8NDWpZ97fnl2djbJxxDiRfjrKGhr/QpFJBKhx8dHamtrI94chUIhUZ74QE9OTiwe/sG0iO0F+rvD3oqovb2d5ubmCIAwcMGtr6/T09OTYZlrZTg4OGhwjEBXV1dKhlLs6upSvCRcK8PFxUW6vLykYrEoOiCedaOjozIOPTw8qPJUQiZcAwCnyII5EzJYOp2WpGF+8xHwh4r73DJQ59ilfsgPL5lMUqFQ0KsEDV+tZCDLq3+YvW1uboq6R/13dnaKj+3u7o6q1arZVM9n3wwAfYOby3feXb/eE2jsGM86+bQz6/U87x4PkuU3HwH/h+OMF06wg992x6EPZKaxBmvhA77+AtwhRvYQqQFKAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-5 col-lg-4 col-lg-offset-6">
+                    <div class="checkbox text-center">
+                        <label>
+                            <input type="checkbox" ng-model="current.rememberDevice" class="ng-pristine ng-untouched ng-valid ng-not-empty"> Remember My Device
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-5 col-lg-4 col-lg-offset-6">
+                    <button type="submit" ng-click="login()" class="btn btn-lg btn-primary btn-block" ng-style="{&#39;background-color&#39;: current.primaryBgColor, &#39;border-color&#39;: current.primaryBgColor}" ng-disabled="mainTracker.active()" style="background-color: rgb(18, 73, 132); border-color: rgb(18, 73, 132);">
+                        <i class="fa" ng-class="{&#39;fa-spinner fa-spin&#39;: mainTracker.active()}"></i> Sign In
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-4 col-md-6 col-md-offset-5 col-lg-4 col-lg-offset-6 text-center" ng-class="{&#39;text-center&#39;: !createLoginOptions || createLoginOptions.count == 0}">
+                    <!-- ngIf: createLoginOptions.count > 0 -->
+                    <a ng-click="toggleForgotPassword()">Forgot password?</a>
+                </div>
+            </div>
+        </div><!-- end ngSwitchWhen: -->
+        <!-- ngSwitchWhen: twoFactorPrompt -->
+        <!-- ngSwitchWhen: twoFactorCode -->
+        <!-- ngSwitchWhen: forgot -->
+        <!-- ngSwitchWhen: reset -->
+        <!-- ngSwitchWhen: createLogin -->
+    </ng-switch>
+</form>
+
+<script type="text/javascript" async="" src="./Login_files/recaptcha__en.js"></script><script src="./Login_files/api.js" async="" defer=""></script>
+
+<script src="./Login_files/angular.min.js"></script>
+<script src="./Login_files/angular-animate.min.js"></script>
+<script src="./Login_files/angular-sanitize.min.js"></script>
+<script src="./Login_files/angular-touch.min.js"></script>
+
+<script src="./Login_files/sugar-full.min.js"></script>
+<script src="./Login_files/ui-bootstrap-tpls.min.js"></script>
+<script src="./Login_files/iframeResizer.min.js"></script><!-- TODO Update -->
+<script src="./Login_files/highcharts.js"></script>
+
+<script src="./Login_files/lib.min.js"></script>
+
+
+<script type="text/javascript">
+    var onloadCallback = function () {
+        if (!document.getElementById('html_element').firstChild) {
+            widget1 = grecaptcha.render('html_element', {
+                'sitekey': '6LfcFv4SAAAAAJlqVEXmoz2VjYuG6YJqjKK0bTTU'
+            });
+        }
+    };
+</script>
+
+<script type="text/javascript">
+    'use strict';
+
+    var app = angular.module('orionLogin', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'ng.shims.placeholder', 'ajoslin.promise-tracker']);
+
+    app.config(function ($httpProvider, datepickerConfig, datepickerPopupConfig) {
+        $httpProvider.interceptors.push('httpGlobalInterceptor');
+        $httpProvider.defaults.headers.get = {'Cache-Control': 'no-cache', Pragma: 'no-cache'};
+
+        datepickerConfig.showWeeks = false;
+        datepickerConfig.maxDate = Date.create('today');
+        datepickerPopupConfig.showButtonBar = false;
+        datepickerPopupConfig.datepickerPopup = 'MM/dd/yyyy';
+        datepickerPopupConfig.appendToBody = true;
+    });
+
+    app.factory('httpGlobalInterceptor', function httpGlobalInterceptor(APP_CONFIG) {
+        return {
+            request: function (config) {
+                var url = config.url;
+                if (url.startsWith("/") && !url.startsWith("//")) {
+                    config.url = APP_CONFIG.baseApiUrl + url;
+                    config.headers.App = "OrionLogin";
+                    config.headers.AppPath = "login.html";
+                }
+
+                return config;
+            }
+        };
+    });
+
+    app.run(function ($rootScope, $templateCache, promiseTracker) {
+        $rootScope.mainTracker = promiseTracker('main');
+
+        ['day', 'month', 'year'].forEach(function (type) {
+            var datePicker = $templateCache.get('template/datepicker/' + type + '.html');
+            datePicker = datePicker.replace("<table ", "<table dp ").replace(/glyphicon/g, "fa").replace(/btn-default/g, "btn-link").replace(/btn-sm/g, "btn-xs");
+            $templateCache.put('template/datepicker/' + type + '.html', datePicker);
+        });
+    });
+
+    app.controller("AppCtrl", function AppCtrl($scope, $sce, $http, $q, APP_CONFIG) {
+        //REGISTER FOR IFRAME MESSAGES
+        var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";  //Good browsers or IE
+        var eventer = window[eventMethod];
+        var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";     //IE or good browser
+
+        eventer(messageEvent, function (e) {
+            if (e.origin === 'https://auth.orionadvisor.com' && !e.data.startsWith("[iFrameSizer]")) {
+                $scope.hideSecureAuthFrame = true;
+                redirect(e.data);
+            }
+        }, false);
+
+
+        //PRIVATE VARIABLES
+        var ALERT_MSGS = {
+            expiredPassword: {type: 'warning', icon: 'fa-exclamation-circle', title: 'Password Reset Required', msg: "For your account security, please reset your password."},
+            userProfile: {type: 'warning', icon: 'fa-exclamation-circle', title: 'Uh oh!', msg: "We were unable to load your user information.  Please try again or contact your advisor if the problem persists."},
+            inactiveUser: {type: 'warning', icon: 'fa-exclamation-circle', title: 'Uh oh!', msg: "This user account is inactive.  Please contact your advisor."},
+            invalidLogin: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "You entered an invalid username and/or password.  Please try again."},
+            internalServer: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "An internal server error occurred.  Please try again or contact your advisor if the problem persists."},
+            unknownError: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "An unexpected error occurred.  Please try again or contact your advisor if the problem persists."},
+            resetInstructions: {type: 'info', icon: 'fa-info-circle', title: 'Heads up!', msg: "You will receive an e-mail shortly.  Follow the link in the e-mail to set your password."},
+            createUserError: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "The following error has occurred: Please address the error or contact your advisor if the problem persists."},
+            mismatchPassword: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "The password fields must match."},
+            passwordReset: {type: 'success', icon: 'fa-info-circle', title: 'Success!', msg: "Your password has been reset.  Please login."},
+            invalidSecurityAnswer: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "The answer to your security question is incorrect or your new password does not meet the minimum criteria below."},
+            invalidNewPassword: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "Your new password does not meet the minimum criteria below."},
+            invalidTwoFactorCode: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "The code you entered is invalid or has expired. Please try again."},
+            invalidAdvisorNumber: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Uh oh!', msg: "The advisor number you entered is invalid. Please try again."},
+            resetExpired: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Link Expired', msg: "The reset period has ended. The email will need to be resent."},
+            salesforceError: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Expired Token', msg: "The amount of time allowed to login has expired.  Please, try again by clicking Orion Connect in Salesforce. "},
+            userNameLength: {type: 'danger', icon: 'fa-exclamation-triangle', title: 'Un oh!', msg: "Username must be at least 6 characters."}
+        };
+        var params,
+            currentTempPassword,
+            twoFactorToken;
+
+
+        //PRIVATE METHODS
+        function init() {
+            var getParameterByName = function (name) {
+                name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(window.location.search);
+                return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            };
+
+            params = {
+                action: getParameterByName("a"),
+                reset: getParameterByName("reset"),
+                page: getParameterByName("p"),
+                site: getParameterByName("s"),
+                dbGuid: getParameterByName("g"),
+                color: getParameterByName("c") || "#777777",
+                entity: getParameterByName("e"),
+                entityId: getParameterByName("i"),
+                hideLogo: getParameterByName("l"),
+                margin: getParameterByName("m"),
+                sfGuid: getParameterByName("sf"),
+                integrationSrc: getParameterByName("ins"),
+                menu: getParameterByName("mn"),
+                returnTo: getParameterByName("return_to")
+            };
+
+            if (!params.color.startsWith("#")) {
+                params.color = "#" + params.color;
+            }
+
+            if (params.reset) {
+                $http.get("/Public/SecurityQuestion/" + params.reset)
+                    .then(function (response) {
+                        var data = response.data;
+                        $scope.current.securityQuestion = data.securityQuestion;
+                        $scope.current.entityEnum = data.entity;
+                    });
+
+                $scope.current.mode = 'reset';
+
+                if (params.site) {  //then user was redirected here from a 'password expired' response from within an app
+                    $scope.current.loginMsgs.push(ALERT_MSGS.expiredPassword);
+                }
+            }
+
+            if (params.dbGuid) {
+                localStorage.oas_alc = params.dbGuid;
+            }
+
+            if (localStorage.oas_alc) {
+                $scope.current.mainLogoUrl = "/Public/Databases/" + localStorage.oas_alc + "/Image";
+
+                $http.get("/Public/Databases/" + localStorage.oas_alc + (params.entity && params.entityId ? "?entity=" + params.entity + "&entityId=" + params.entityId : ""))
+                    .then(function (response) {
+                        var options = response.data.createLoginOptions;
+                        options.count = 0;
+
+                        if (options.client !== 'None') {
+                            options.count += 1;
+                            $scope.userToCreate.entity = "Client";
+                        }
+
+                        if (options.representative !== "None") {
+                            options.count += 1;
+                            if (!$scope.userToCreate.entity) {
+                                $scope.userToCreate.entity = "Representative";
+                            }
+                        }
+
+                        if (params.action === 'create' && options.count > 0) {
+                            $scope.current.mode = 'createLogin';
+                            setTimeout(onloadCallback);
+                        }
+
+                        $scope.createLoginOptions = options;
+                    });
+            }
+
+            if (params.entity && params.entityId) {
+                localStorage.oas_portal_theme = JSON.stringify({primaryBgColor: params.color, entity: params.entity, entityId: params.entityId});
+            }
+
+            if (localStorage.oas_portal_theme) {
+                var theme = JSON.parse(localStorage.oas_portal_theme);
+                $scope.current.primaryBgColor = theme.primaryBgColor;
+                if ($scope.current.mainLogoUrl) {
+                    $scope.current.mainLogoUrl += "?entity=" + (theme.entity || '') + "&entityId=" + (theme.entityId || '');
+                }
+            } else {
+                $scope.current.primaryBgColor = params.color;
+            }
+
+            if (params.hideLogo) {
+                $scope.current.hideLogo = true;
+            }
+
+            if (!params.margin) {
+                $scope.current.formHeight = "400px";
+            }
+
+            if (!localStorage.oas_device_id) {
+                localStorage.oas_device_id = randomString(255);
+            }
+        }
+
+        function redirect(token) {
+            if (params.action === "saml" && params.page) {
+                window.top.location.href = params.page + "?t=" + token;
+                return;
+            }
+
+            $http.defaults.headers.common.Authorization = 'Session ' + token;
+
+            $http.get("/Authorization/User?forMobileApp=false", {tracker: 'main'})
+                .then(function (response) {
+                    var user = response.data;
+                    var isClient = user.entity === "Household";
+                    var isRep = user.entity === "Representative";
+                    var isApiOnlyUser = user.roleId === APP_CONFIG.apiOnlyRoleId;
+                    var isInformOnlyUser = user.roleId === APP_CONFIG.informOnlyRoleId.user;
+                    var isInformOnlyAdmin = user.roleId === APP_CONFIG.informOnlyRoleId.admin;
+
+                    localStorage.oas_alc = user.alClientGuid;
+
+                    var promises = {primaryBgColor: $http.get("/Settings/CustomSettings/theme-primary-bg-color", {tracker: 'main'})};
+                    if (!params.page && !isApiOnlyUser && !isInformOnlyUser) {
+                        promises.landingPage = $http.get(isClient ? "/Settings/CustomSettings/default-landing-page" : "/Settings/UserOptions/main_menu_apps", {tracker: 'main'});
+                    }
+                    if (isRep) {
+                        promises.useRepPortal = $http.get("/Settings/Database/EntityOptions/Code/69REPPORTALLAND", {tracker: 'main'});
+                    }
+                    if (isClient) {
+                        promises.useFeePayPortal = $http.get("/Portfolio/Clients/" + user.entityId, {tracker: 'main'});
+                    }
+
+                    var redirectUrl;
+
+                    $q.all(promises)
+                        .then(function (responses) {
+                            var theme = {primaryBgColor: responses.primaryBgColor.data.value, entity: user.entity, entityId: user.entityId};
+
+                            if (responses.landingPage) {
+                                if (isClient) {
+                                    if (responses.useFeePayPortal.data.category === 'Planning Fee Only Client') {
+                                        params.page = "/dashboard";
+                                        params.site = "feePayPortal";
+                                    } else {
+                                        params.page = responses.landingPage.data.value;
+                                        params.site = "portal";
+                                    }
+                                } else if (responses.landingPage.data.value) {
+                                    var app = JSON.parse(responses.landingPage.data.value).defaultApp;
+
+                                    if (app) {
+                                        app.routeUrl = app.routeUrl.replace('[TOKEN]', token)
+                                            .replace('[BASEURL]', APP_CONFIG.baseApiUrl)
+                                            .replace('[HIDDENLEVERAPIKEY]', APP_CONFIG.hiddenLeversApiKey)
+                                            .replace('[USERDETAILID]', user.loginUserId + "_" + user.userDetailId);
+
+                                        switch (app.ssoType) {
+                                            case "None":
+                                                params.site = "orionConnect";
+                                                params.page = app.routeUrl.from(1);
+                                                break;
+                                            case "NewTabRedirect":
+                                                redirectUrl = app.routeUrl;
+                                                break;
+                                            case "Portal":  // = Rep Portal
+                                                redirectUrl = app.routeUrl + token;
+                                                break;
+                                        }
+                                    } else {
+                                        params.site = "orionConnect";
+                                    }
+                                } else {
+                                    params.site = "orionConnect";
+                                }
+                            } else if (isApiOnlyUser) {
+                                params.site = "devPortal";
+                            } else if (isInformOnlyUser) {
+                                redirectUrl = APP_CONFIG.orionConnectUrl + '&m=inform-user&p=/tools/inform/dashboard';
+                            }
+
+                            if (isRep && !redirectUrl && responses.useRepPortal && responses.useRepPortal.data.value === "True") {
+                                redirectUrl = APP_CONFIG.repPortalUrl;
+                            }
+
+                            localStorage.oas_portal_theme = JSON.stringify(theme);
+                        })
+                        .finally(function () {
+                            if (params.sfGuid) {
+                                $http.post("/Authorization/User/Integrations/Saleforce?sessionId=" + params.sfGuid, null, {tracker: 'main'})
+                                    .then(function (response) {
+                                        window.location.href = response.data;
+                                    })
+                                    .catch(function () {
+                                        $scope.current.loginMsgs.push(ALERT_MSGS.salesforceError);
+                                    });
+                            } else {
+                                if (!redirectUrl) {
+                                    redirectUrl = APP_CONFIG[params.site + "Url"];
+
+                                    if (params.site && params.page) {
+                                        if ((isClient && ["portal", "feePayPortal"].any(params.site)) || (!isClient && ["orionConnect", "insight", "trends"].any(params.site))) {
+                                            redirectUrl += params.site === 'trends' ? "&returnTo=" + params.returnTo : "&p=" + encodeURIComponent(params.page);
+                                        }
+                                    }
+
+                                    if (isInformOnlyAdmin) {
+                                        redirectUrl += '&m=inform-admin';
+                                    }
+                                }
+
+                                redirectUrl = redirectUrl.replace('[TOKEN]', token);
+
+                                window.top.location.href = redirectUrl;
+                            }
+                        });
+                })
+                .catch(function () {
+                    $scope.current.loginMsgs.push(ALERT_MSGS.userProfile);
+                });
+        }
+
+
+        function randomString(len, charSet) {
+            charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+            var randomString = '';
+            for (var i = 0; i < len; i++) {
+                var randomPoz = Math.floor(Math.random() * charSet.length);
+                randomString += charSet.substring(randomPoz, randomPoz + 1);
+            }
+            return randomString;
+        }
+
+
+        //PUBLIC METHODS
+        $scope.login = function () {
+            localStorage.oas_username = $scope.current.username;
+
+            var headers = {Authorization: "Basic " + ($scope.current.username + ":" + $scope.current.password).encodeBase64()};
+            if ($scope.current.rememberDevice) {
+                headers.DeviceId = localStorage.oas_device_id;
+            }
+
+            $http.get("/security/token", {tracker: 'main', headers: headers})
+                .then(function (response) {
+                    var twoFactorMethods = response.data.two_factor_opts;
+
+                    if (twoFactorMethods) {
+                        twoFactorToken = response.data.access_token;
+
+                        $scope.toggleTwoFactorPrompt();
+
+                        $scope.twoFactorMethods = {
+                            list: twoFactorMethods,
+                            selected: twoFactorMethods.length ? twoFactorMethods[0].type : null
+                        };
+                    } else {
+                        redirect(response.data.access_token);
+                    }
+                })
+                .catch(function (response) {
+                    var msg;
+                    switch (response.status) {
+                        case 401:
+                            //check for reset header (safari 8+ eats the custom status text)
+                            var statusText = response.headers().reset ? "password expired" : response.statusText.toLowerCase();
+
+                            switch (statusText) {
+                                case "password expired":
+                                    msg = ALERT_MSGS.expiredPassword;
+                                    currentTempPassword = $scope.current.password;
+                                    $scope.current.mode = 'reset';
+                                    break;
+                                case "user inactive":
+                                    msg = ALERT_MSGS.inactiveUser;
+                                    break;
+                                default:
+                                    msg = ALERT_MSGS.invalidLogin;
+                            }
+                            break;
+                        case 500:
+                            msg = ALERT_MSGS.internalServer;
+                            break;
+                        default:
+                            msg = ALERT_MSGS.unknownError;
+                    }
+
+                    $scope.current.loginMsgs.push(msg);
+                    $scope.current.password = null;
+                });
+        };
+
+        $scope.sendTwoFactorCode = function () {
+            var headers = {Authorization: "Session " + twoFactorToken};
+
+            $http.post("/security/token/sendtwofactorcode?deliveryType=" + $scope.twoFactorMethods.selected, null, {tracker: 'main', headers: headers})
+                .then(function () {
+                    $scope.current.mode = 'twoFactorCode';
+                })
+                .catch(function () {
+                    $scope.current.loginMsgs.push(ALERT_MSGS.unknownError);
+                });
+        };
+
+        $scope.submitTwoFactorCode = function () {
+            var headers = {Authorization: "2FA " + twoFactorToken + '|' + $scope.current.twoFactorCode};
+            if ($scope.current.rememberDevice) {
+                headers.DeviceId = localStorage.oas_device_id;
+            }
+
+            $http.get("/security/token", {tracker: 'main', headers: headers})
+                .then(function (response) {
+                    redirect(response.data.access_token);
+                })
+                .catch(function () {
+                    $scope.current.twoFactorCode = null;
+                    $scope.current.loginMsgs.push(ALERT_MSGS.invalidTwoFactorCode);
+                });
+        };
+
+        $scope.deleteMsg = function (index) {
+            $scope.current.loginMsgs.splice(index, 1);
+        };
+
+        $scope.toggleForgotPassword = function () {
+            $scope.current.loginMsgs.length = 0;
+            $scope.current.password = null;
+            $scope.current.mode = $scope.current.mode === 'login' ? 'forgot' : 'login';
+        };
+
+        $scope.toggleTwoFactorPrompt = function () {
+            $scope.current.loginMsgs.length = 0;
+            $scope.current.mode = 'twoFactorPrompt';
+        };
+
+        $scope.sendPasswordLink = function () {
+            $http.post('/Public/RequestForgotPassword/' + $scope.current.username + '?urlId=1', null, {tracker: 'main'})
+                .then(function () {
+                    $scope.current.loginMsgs.push(ALERT_MSGS.resetInstructions);
+                    $scope.current.mode = 'login';
+                })
+                .catch(function (response) {
+                    $scope.current.loginMsgs.push(ALERT_MSGS.unknownError);
+                });
+        };
+
+        $scope.resetPassword = function () {
+            if ($scope.current.password !== $scope.current.password2) {
+                $scope.current.loginMsgs.push(ALERT_MSGS.mismatchPassword);
+                return;
+            }
+
+            var headers = {
+                Authorization: params.reset ? "Forgot " + params.reset : "Basic " + ($scope.current.username + ":" + currentTempPassword).encodeBase64(),
+                ChangePassword: $scope.current.password2.encodeBase64()
+            };
+
+            if ($scope.current.securityQuestion) {
+                headers.SecurityAnswer = $scope.current.securityAnswer.encodeBase64();
+            }
+
+            if ($scope.current.advisorNumber) {
+                headers.AdvisorNumber = $scope.current.advisorNumber;
+            }
+
+            $http.get("/security/token", {tracker: 'main', headers: headers})
+                .then(function () {
+                    $scope.current.loginMsgs = [];
+                    $scope.current.loginMsgs.push(ALERT_MSGS.passwordReset);
+                    $scope.current.mode = 'login';
+                })
+                .catch(function (response) {
+                    var msg = ALERT_MSGS.unknownError;
+
+                    if (response.status === 401) {
+                        msg = ALERT_MSGS[response.statusText.camelize(false)];
+                        if (!msg) {
+                            msg = ALERT_MSGS.invalidNewPassword;
+                        }
+                    }
+
+                    $scope.current.loginMsgs.push(msg);
+                });
+        };
+
+        $scope.toggleCreateLogin = function () {
+            $scope.current.loginMsgs.length = 0;
+            $scope.current.password = null;
+            $scope.current.mode = $scope.current.mode === 'login' ? 'createLogin' : 'login';
+
+            setTimeout(onloadCallback);
+        };
+
+        $scope.createUser = function () {
+            if (!$scope.current.username.length || $scope.current.username.length < 6) {
+                $scope.current.loginMsgs.push(ALERT_MSGS.userNameLength);
+                return;
+            }
+
+            $scope.userToCreate.username = $scope.current.username;
+            $scope.userToCreate.captchaResponse = grecaptcha.getResponse(widget1);
+
+            if (params.entity && params.entityId) {
+                $scope.userToCreate.creatingEntity = params.entity;
+                $scope.userToCreate.creatingEntityId = params.entityId;
+            }
+
+            $http.post('/Public/User/' + localStorage.oas_alc, $scope.userToCreate, {tracker: 'main'})
+                .then(function (response) {
+                    var data = response.data;
+                    $scope.current.loginMsgs.length = 0;
+
+                    if (!data.success) {
+                        var alert = angular.copy(ALERT_MSGS.createUserError);
+                        if (data["error-codes"]) {
+                            alert.msg = "The following error has occurred: \"" + data["error-codes"][0] + "\" Please address the error or contact your advisor if the problem persists.";
+                        } else {
+                            alert.msg = "An error has occurred. Please try resetting the reCaptcha. Contact your advisor if the problem persists.";
+                        }
+                        $scope.current.loginMsgs.push(alert);
+                    } else {
+                        $scope.current.loginMsgs.push(ALERT_MSGS.resetInstructions);
+                        $scope.current.mode = 'login';
+                    }
+                })
+                .catch(function () {
+                    $scope.current.loginMsgs.push(ALERT_MSGS.unknownError);
+                })
+                .finally(function () {
+                    $scope.userToCreate.captchaResponse = null;
+                });
+        };
+
+        $scope.resetRecaptcha = function () {
+            grecaptcha.reset(widget1);
+        };
+
+
+        //INITIALIZE
+        $scope.current = {username: localStorage.oas_username, password: null, password2: null, rememberDevice: true, mainLogoUrl: null, hideLogo: null, hideMargin: null, primaryBgColor: null, mode: 'login', loginMsgs: []};
+        $scope.userToCreate = {};
+        $scope.secureAuthUrl = $sce.trustAsResourceUrl(APP_CONFIG.secureAuthUrl);
+        init();
+    });
+</script>
+
+<script src="./Login_files/login.constants.js"></script>
+<script src="./Login_files/oasImgSrc.js"></script>
+<script src="./Login_files/iframeResizer.js"></script>
+
+
+<!-- Google Code for Remarketing Tag -->
+<!--------------------------------------------------
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+--------------------------------------------------->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 997267752;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="./Login_files/f.txt">
+</script><script src="./Login_files/f(1).txt"></script>
+<noscript>
+    <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/997267752/?guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+
+</body></html>
